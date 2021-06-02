@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login/{socialNetwork}', [SocialLoginController::class,'redirectToSocialNetwork'])->name('login.social')->middleware('guest');
+Route::get('login/{socialNetwork}/callback', [SocialLoginController::class,'handleSocialNetworkCallback'])->middleware('guest');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
